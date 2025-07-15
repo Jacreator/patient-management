@@ -1,0 +1,5 @@
+# volume mounts
+db_volumes
+
+.idea
+.qodo

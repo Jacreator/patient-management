@@ -1,5 +1,14 @@
 {
   "java.compile.nullAnalysis.mode": "automatic",
   "java.configuration.updateBuildConfiguration": "automatic",
-  "cSpell.words": ["jdbc", "patientdb", "springframework"]
+  "cSpell.words": [
+    "devh",
+    "jdbc",
+    "patientdb",
+    "qodo",
+    "springdoc",
+    "springframework",
+    "temurin",
+    "webmvc"
+  ]
 }
