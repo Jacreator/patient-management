@@ -1,0 +1,49 @@
+### Creates a new patient entity
+POST http://localhost:4000/api/patients
+Content-Type: application/json
+# Authorization: Bearer {{token}}
+
+{
+  "name": "John Doe Kafka Test",
+  "email": "kafka_test11@example.com",
+  "address": "123 main street22",
+  "dateOfBirth": "1995-09-09",
+  "registeredDate": "2024-11-28"
+}
+
+###
+
+### Delete an entity
+DELETE http://localhost:4000/api/patients/123e4567-e89b-12d3-a456-426614174000
+### Request Headers
+Content-Type: application/json
+# Authorization: Bearer {{token}}
+
+###
+
+### GET request to get all patients
+GET http://localhost:4000/api/patients
+### Request Headers
+Content-Type: application/json
+# Authorization: Bearer {{token}}
+###
+
+### GET request to get one patient
+GET http://localhost:4000/api/patients/123e4567-e89b-12d3-a456-426614174000
+### Request Headers
+Content-Type: application/json
+# Authorization: Bearer {{token}}
+###
+
+### Updates an existing patient entity
+PUT http://localhost:4000/api/patients/123e4567-e89b-12d3-a456-426614174000
+Content-Type: application/json
+
+{
+  "name": "John Doe UPDATED",
+  "email": "john.doe@example.com",
+  "address": "123 main street",
+  "dateOfBirth": "1995-09-09"
+}
+
+###

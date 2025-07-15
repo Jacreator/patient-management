@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.pm.patient_service.dto.PatientRequestDto;
 import com.pm.patient_service.dto.PatientResponseDto;
 import com.pm.patient_service.exception.EmailAlreadyExistsException;
+import com.pm.patient_service.exception.PatientNotFoundException;
 import com.pm.patient_service.mapper.PatientMapper;
 import com.pm.patient_service.model.Patient;
 import com.pm.patient_service.repository.PatientRepository;
@@ -31,7 +32,7 @@ public class PatientService {
       throw new IllegalArgumentException("Patient ID cannot be null or empty");
     }
     Patient patient = patientRepository.findById(UUID.fromString(id))
-        .orElseThrow(() -> new RuntimeException("Patient not found"));
+        .orElseThrow(() -> new PatientNotFoundException("Patient not found"));
     return PatientMapper.toDto(patient);
   }
 
@@ -40,6 +41,34 @@ public class PatientService {
       throw new EmailAlreadyExistsException("Email already exists");
     }
     Patient patient = PatientMapper.toEntity(patientDto);
+    patient = patientRepository.save(patient);
+    return PatientMapper.toDto(patient);
+  }
+
+  public void deletePatient(String id) {
+    if (id == null || id.isEmpty()) {
+      throw new IllegalArgumentException("Patient ID cannot be null or empty");
+    }
+    UUID patientId = UUID.fromString(id);
+    if (!patientRepository.existsById(patientId)) {
+      throw new RuntimeException("Patient not found");
+    }
+    patientRepository.deleteById(patientId);
+  }
+
+  public PatientResponseDto updatePatient(String id, PatientRequestDto patientDto) {
+    if (id == null || id.isEmpty()) {
+      throw new IllegalArgumentException("Patient ID cannot be null or empty");
+    }
+    UUID patientId = UUID.fromString(id);
+    if (!patientRepository.existsById(patientId)) {
+      throw new PatientNotFoundException("Patient not found: " + id);
+    }
+    if (patientRepository.existsByEmailAndIdNot(patientDto.getEmail(), patientId)) {
+      throw new EmailAlreadyExistsException("Email already exists");
+    }
+    Patient patient = PatientMapper.toEntity(patientDto);
+    patient.setId(patientId);
     patient = patientRepository.save(patient);
     return PatientMapper.toDto(patient);
   }
