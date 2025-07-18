@@ -5,10 +5,12 @@
     "devh",
     "jdbc",
     "patientdb",
+    "protoc",
     "qodo",
     "springdoc",
     "springframework",
     "temurin",
-    "webmvc"
+    "webmvc",
+    "xolstice"
   ]
 }
